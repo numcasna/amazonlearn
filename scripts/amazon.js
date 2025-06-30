@@ -1,9 +1,9 @@
-//saving the data
+//s-1 saving the data, saved in products .js
 
 
 let productsHTML =''; //combined all the generated HTML into one single string
 
-//generating HTML
+//s-2 generating HTML
 products.forEach((product)=> {
   productsHTML += `<div class="product-container">
           <div class="product-image-container">
@@ -49,7 +49,8 @@ products.forEach((product)=> {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart"
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>`
@@ -57,3 +58,33 @@ products.forEach((product)=> {
 });
 
 document.querySelector('.js-products-grid').innerHTML =productsHTML;
+
+//s-3 making the button interactive
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+      button.addEventListener('click', () => {
+        const productId = button.dataset.productId;
+        // cart.push({
+        //   productId: productId,
+        //   quantity: 1
+
+        // });
+       
+        
+        let matchingItem;
+          cart.forEach((item) => {
+                if (productId === item.productId) {
+                matchingItem = item;
+                }
+          });
+            if (matchingItem) {
+              matchingItem.quantity += 1;
+          } else {
+              cart.push({
+              productId: productId,
+              quantity: 1
+              });
+              }
+               console.log(cart);
+      });
+});
